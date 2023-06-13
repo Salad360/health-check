@@ -94,3 +94,15 @@ Test-ADAuthentication -username $UserName -password $password
 
 
 
+# Collect Hard Disk Stats
+
+Write-Output "Hard Drives" >> results.txt
+Write-Output "----------">> results.txt
+
+
+
+Get-PSDrive C >> .\results.txt
+
+
+
+
