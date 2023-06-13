@@ -103,6 +103,12 @@ Write-Output "----------">> results.txt
 
 Get-PSDrive C >> .\results.txt
 
+Write-Output "Other drives:" >> .\results.txt
 
+Get-PSDrive D >> .\results.txt
 
+Get-PSDrive E >> .\results.txt
 
+Get-PSDrive F >> .\results.txt
+
+Get-PSDrive G >> .\results.txt
