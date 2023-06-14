@@ -105,6 +105,7 @@ Write-Output "Hard Drives" >> results.txt
 Write-Output "----------">> results.txt
 
 
+# Might Clean this up later i.e. do something like $GB = ((Get-PSDrive C).Used) / 1000000000 etc. 
 
 Get-PSDrive C >> .\results.txt
 
