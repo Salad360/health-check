@@ -196,14 +196,19 @@ Write-Output "----------">> results.txt
 
 function Get-CPULoadAvg {
     $C1 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
     $C2 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
     $C3 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
     $C4 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
     $C5 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
     $C6 = ((Get-WmiObject Win32_Processor).LoadPercentage)
 
