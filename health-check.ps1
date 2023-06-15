@@ -194,6 +194,9 @@ Write-Output "----------">> results.txt
 
 #Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object Average | Format-Table -HideTableHeaders >> .\results.txt
 
+# Function to get CPU load once every 5 seconds for 30 seconds and calculate the average
+# -Filter "DeviceID" is needed because many ESXi VMs are presented with multiple CPU sockets rather than threads, without filter, a load value is produced for each "socket" which breaks
+# the calculation for $Avg
 function Get-CPULoadAvg {
     $C1 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
     Write-Output "Measuring CPU load averaged over 30 seconds"
