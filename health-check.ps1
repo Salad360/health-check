@@ -195,22 +195,22 @@ Write-Output "----------">> results.txt
 #Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object Average | Format-Table -HideTableHeaders >> .\results.txt
 
 function Get-CPULoadAvg {
-    $C1 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    $C1 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
     Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
-    $C2 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    $C2 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
     Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
-    $C3 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    $C3 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
     Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
-    $C4 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    $C4 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
     Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
-    $C5 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    $C5 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
     Write-Output "Measuring CPU load averaged over 30 seconds"
     timeout.exe 5
-    $C6 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    $C6 = ((Get-WmiObject Win32_Processor -Filter "DeviceID='CPU0'").LoadPercentage)
 
 
     $CAvg = ($C1 + $C2 + $C3 + $C4 + $C5 + $C6) / 6
