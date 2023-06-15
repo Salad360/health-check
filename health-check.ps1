@@ -105,21 +105,84 @@ Write-Output "Hard Drives" >> results.txt
 Write-Output "----------">> results.txt
 
 
-# Might Clean this up later i.e. do something like $GB = ((Get-PSDrive C).Used) / 1000000000 etc. 
+# Functions for reporting diskspace usage for drives C: through G:
+function Get-CUsage {
+    $CDiskUsed = ((Get-PSDrive C).Used) / 1000000000 
 
-Get-PSDrive C >> .\results.txt
+    $CDiskFree = ((Get-PSDrive C).Free) / 1000000000
+    Write-Output "C: $($CDiskUsed) GB used, $($CDiskFree) GB free"
+}
+
+Get-CUsage >> .\results.txt
 
 Write-Output "Other drives:" >> .\results.txt
 
-Get-PSDrive D >> .\results.txt
+function Get-DUsage {
+    $DDiskUsed = ((Get-PSDrive D).Used) / 1000000000 
 
-Get-PSDrive E >> .\results.txt
+    $DDiskFree = ((Get-PSDrive D).Free) / 1000000000
 
-Get-PSDrive F >> .\results.txt
+     if ($DDiskUsed -le 1) {
+        Write-Output "No D: Present" >> .\results.txt
+     }else { 
+        Write-Output "D: $($DDiskUsed) GB used, $($DDiskFree) GB free" >> .\results.txt
+     }
+}
 
-Get-PSDrive G >> .\results.txt
+
+Get-DUsage
+
+function Get-EUsage {
+    $EDiskUsed = ((Get-PSDrive E).Used) / 1000000000 
+
+    $EDiskFree = ((Get-PSDrive E).Free) / 1000000000
+
+     if ($EDiskUsed -le 1) {
+        Write-Output "No E: Present" >> .\results.txt
+     }else { 
+        Write-Output "E: $($EDiskUsed) GB used, $($EDiskFree) GB free" >> .\results.txt
+     }
+}
+
+Get-EUsage
+
+function Get-FUsage {
+    $FDiskUsed = ((Get-PSDrive F).Used) / 1000000000 
+
+    $FDiskFree = ((Get-PSDrive F).Free) / 1000000000
+
+     if ($FDiskUsed -le 1) {
+        Write-Output "No F: Present" >> .\results.txt
+     }else { 
+        Write-Output "F: $($FDiskUsed) GB used, $($FDiskFree) GB free" >> .\results.txt
+     }
+}
+
+
+Get-FUsage
+
+function Get-GUsage {
+    $GDiskUsed = ((Get-PSDrive G).Used) / 1000000000 
+
+    $GDiskFree = ((Get-PSDrive G).Free) / 1000000000
+
+     if ($GDiskUsed -le 1) {
+        Write-Output "No G: Present" >> .\results.txt
+     }else { 
+        Write-Output "G: $($GDiskUsed) GB used, $($GDiskFree) GB free" >> .\results.txt
+     }
+}
+
+Get-GUsage
+
 
 # TODO: Implement Disk health reporting if it's even possible w/o external tools
+
+Read-Host "Now run the following cmdlet in an elevated PS window: Get-Disk | Get-StorageReliabilityCounter | Select-Object -Property "*""
+
+
+
+Write-Output "Drives healthy?" >> .\results.txt
 
 # CPU/MEM usage
 
@@ -127,11 +190,32 @@ Write-Output "Task Manager" >> results.txt
 Write-Output "----------">> results.txt
 
 
-Write-Output "CPU Usage (%):" >> .\results.txt
+#Write-Output "CPU Usage (%):" >> .\results.txt
 
-Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object Average | Format-Table -HideTableHeaders >> .\results.txt
+#Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object Average | Format-Table -HideTableHeaders >> .\results.txt
 
-Write-Output "Memory Usage:" >> .\results.txt
+function Get-CPULoadAvg {
+    $C1 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    timeout.exe 5
+    $C2 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    timeout.exe 5
+    $C3 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    timeout.exe 5
+    $C4 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    timeout.exe 5
+    $C5 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+    timeout.exe 5
+    $C6 = ((Get-WmiObject Win32_Processor).LoadPercentage)
+
+
+    $CAvg = ($C1 + $C2 + $C3 + $C4 + $C5 + $C6) / 6
+
+    Write-Output "CPU Usage: $($CAvg) %" >> .\results.txt
+}
+
+Get-CPULoadAvg
+
+
 
 # Note to self: the "((xxx).xxx)" Format outputs the object as an int rather than a string like doing -Select-Object would so you can do teh maths on them
 
@@ -144,5 +228,5 @@ $TotalRAMKBytes = ((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySiz
 
 $TotalRAMGBytes = $TotalRAMKBytes / 1000000
 
-Write-Output "$($FreeMemGB) GB free of $($TotalRAMGBytes) GB" >> .\results.txt
+Write-Output "Memory Usage: $($FreeMemGB) GB free of $($TotalRAMGBytes) GB" >> .\results.txt
 
