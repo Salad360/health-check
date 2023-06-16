@@ -238,3 +238,11 @@ $TotalRAMGBytes = $TotalRAMKBytes / 1000000
 
 Write-Output "Memory Usage: $($FreeMemGB) GB free of $($TotalRAMGBytes) GB" >> .\results.txt
 
+
+# Get Disk I/O
+
+
+# This no worky, no time to fix atm
+#$DiskIO = ((Get-counter -counter '\logicaldisk(c:)\% disk read time').countersamples) 
+#
+#Write-Output "Disk Usage: $($DiskIO) %" >> .\results.txt
