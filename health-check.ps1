@@ -246,3 +246,38 @@ Write-Output "Memory Usage: $($FreeMemGB) GB free of $($TotalRAMGBytes) GB" >> .
 #$DiskIO = ((Get-counter -counter '\logicaldisk(c:)\% disk read time').countersamples) 
 #
 #Write-Output "Disk Usage: $($DiskIO) %" >> .\results.txt
+
+
+
+# Get installed AV software
+
+Write-Output "Anti-Virus Protection:" >> .\results.txt
+Write-Output "----------------------" >> .\results.txt
+
+$AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProduct).displayName)
+
+   if ($AV -eq 'Windows Defender') {
+      Write-Output "Protected? No" >> .\results.txt
+   } else {
+      Write-Output "Protected? Yes" >> .\results.txt
+      Write-Output "With What? $($AV)" >> .\results.txt
+   
+   }
+ 
+   Write-Output "AV and definitions up-to-date?" >> .\results.txt
+
+
+   # Backup Protection (For now to remain a manual-check proccess)
+
+   Write-Output "Backup Protection" >> .\results.txt
+   Write-Output "------------------" >> .\results.txt
+   Write-Output "Backups active and monitored?" >> .\results.txt
+
+
+#   # Windows Updates
+#
+#   Write-Output "Windows Update:" >> .\results.txt
+#   Write-Output "---------------"  >> .\results.txt
+#
+#
+#Install-Module -Name PSWindowsUpdate
