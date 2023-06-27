@@ -1,55 +1,4 @@
-#############################################################
-# Template for results.txt
-##############################################################
-#Login test
-#
-#--------------
-#
-#Primary Domain Admin:
-#AMS Admin:
-#
-#Hard drives:
-#----------------
-#C:
-#Other drives:
-#Drives healthy?
-#
-#Task Manager:
-#--------------------
-#Processor Usage:
-#Memory Usage:
-#HDD/SSD Activity:
-#
-#Anti-Virus Protection:
-#----------------------------
-#Protected?
-#What with?
-#AV and Definitions up to date?
-#
-#Backup Protection:
-#--------------------------
-#Backup active and monitored?
-#
-#Windows Update:
-#-------------------------
-#Device up to date?
-#
-#Event Viewer:
-#------------------
-#Application:
-#System:
-#Security:
-#
-#Overall Diagnostics:
 
-#################################################################################################################
-# Skipping login testing for now                                          
-#################################################################################################################
-
-#Write-Output "Login Test" >> results.txt
-#Write-Output "----------">> results.txt
-#
-#
 ## Test AD Auth for Administrator Account
 #
 #Function Test-ADAuthentication {
@@ -289,3 +238,4 @@ Write-output "Application:" >> .\results.txt
 Write-output "System:" >> .\results.txt
 Write-output "Security:" >> .\results.txt
 
+Write-Output "Overall Diagnostics:" >> .\results.txt
