@@ -276,8 +276,16 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
 
 #   # Windows Updates
 #
-#   Write-Output "Windows Update:" >> .\results.txt
-#   Write-Output "---------------"  >> .\results.txt
+   Write-Output "Windows Update:" >> .\results.txt
+   Write-Output "---------------"  >> .\results.txt
 #
 #
 #Install-Module -Name PSWindowsUpdate
+
+
+Write-output "Event Viewer:" >> .\results.txt
+Write-output "-----------"
+Write-output "Application:" >> .\results.txt
+Write-output "System:" >> .\results.txt
+Write-output "Security:" >> .\results.txt
+
