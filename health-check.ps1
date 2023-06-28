@@ -1,4 +1,9 @@
 
+# Run via copypasta'ing this command in powershell: iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/Salad360/health-check/main/health-check.ps1'))
+
+# May reqire first running this command: [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+
+
 Write-Output "Login Test" >> .\results.txt
 Write-Output "-----------" >> .\results.txt
 
