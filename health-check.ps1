@@ -1,52 +1,47 @@
 
-## Test AD Auth for Administrator Account
-#
-#Function Test-ADAuthentication {
-#    param(
-#        $username,
-#        $password)
-#
-#        $username = Administrator
-#        
-#        $password = Read-Host -Prompt "Enter Default Domain Administrator Password"
-#        if ((New-Object DirectoryServices.DirectoryEntry "",$username,$password).psbase.name -ne $null) {
-#            Write-Output "Administrator: Pass" > results.txt
-#        
-#        } else {
-#            Write-Output Administrator: Fail >> results.txt
-#        }
-#}
-#
-#Test-ADAuthentication -username $UserName -password $password
-#
-#
-## Do the same for AMS admin account
-#
-#Function Test-ADAuthentication {
-#    param(
-#        $username,
-#        $password)
-#
-#        $username = AMS
-#        
-#        $password = Read-Host -Prompt "Enter AMS admin Password"
-#
-#
-#    if ((New-Object DirectoryServices.DirectoryEntry "",$username,$password).psbase.name -ne $null) {
-#        Write-Output "AMS Admin: Pass" > results.txt
-#    
-#    } else {
-#        Write-Output "AMS Admin: Fail" >> results.txt
-#    }
-#}
-#
-#Test-ADAuthentication -username $UserName -password $password
+Write-Output "Login Test" >> .\results.txt
+Write-Output "-----------" >> .\results.txt
 
 
+# Test Administrator Credential
+$cred = Get-Credential -Message "Enter credentials for the built-in domain admin account" #Read credentials
+$username = $cred.username
+$password = $cred.GetNetworkCredential().password
+
+# Get current domain using logged-on user's credentials
+$CurrentDomain = "LDAP://" + ([ADSI]"").distinguishedName
+$domain = New-Object System.DirectoryServices.DirectoryEntry($CurrentDomain,$UserName,$Password)
+
+if ($domain.name -eq $null)
+{
+write-output "Primary Domain Admin: Authentication failed" >> .\results.txt
+
+}
+else
+{
+write-output "Primary Domain Admin: Pass" >> .\results.txt
+}
 
 
+# Test AMS domain admin credential
 
+$cred = Get-Credential -Message "Enter credentials for the AMS domain admin account" #Read credentials
+$username = $cred.username
+$password = $cred.GetNetworkCredential().password
 
+# Get current domain using logged-on user's credentials
+$CurrentDomain = "LDAP://" + ([ADSI]"").distinguishedName
+$domain = New-Object System.DirectoryServices.DirectoryEntry($CurrentDomain,$UserName,$Password)
+
+if ($domain.name -eq $null)
+{
+write-output "AMS Admin: Authentication failed" >> .\results.txt
+
+}
+else
+{
+write-output "AMS Admin: Primary Domain Admin: Pass" >> .\results.txt
+}
 
 # Collect Hard Disk Stats
 
