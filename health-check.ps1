@@ -229,7 +229,11 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
    Write-Output "---------------"  >> .\results.txt
 #
 #
+# Might try to automate updates at some point, might not
 #Install-Module -Name PSWindowsUpdate
+
+
+# TODO: Find a way to automate Event-viewer filtering as it takes freaking forever to load
 
 
 Write-output "Event Viewer:" >> .\results.txt
