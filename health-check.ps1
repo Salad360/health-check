@@ -190,12 +190,11 @@ Write-Output "Memory Usage: $($FreeMemGB) GB free of $($TotalRAMGBytes) GB" >> .
 
 # Get Disk I/O
 
+$diskUsage = Get-Counter -Counter "\LogicalDisk(_Total)\% Disk Time" | Select-Object -ExpandProperty CounterSamples | Select-Object -ExpandProperty CookedValue
 
-# This no worky, no time to fix atm
-#$DiskIO = ((Get-counter -counter '\logicaldisk(c:)\% disk read time').countersamples) 
-#
-#Write-Output "Disk Usage: $($DiskIO) %" >> .\results.txt
+$diskUsageFormatted = "{0:N2}%" -f $diskUsage
 
+"Disk Usage: $diskUsageFormatted" >> .\results.txt
 
 
 # Get installed AV software
