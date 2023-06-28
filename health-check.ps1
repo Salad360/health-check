@@ -45,7 +45,7 @@ write-output "AMS Admin: Authentication failed" >> .\results.txt
 }
 else
 {
-write-output "AMS Admin: Primary Domain Admin: Pass" >> .\results.txt
+write-output "AMS Admin:: Pass" >> .\results.txt
 }
 
 # Collect Hard Disk Stats
