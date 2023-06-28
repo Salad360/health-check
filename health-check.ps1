@@ -247,7 +247,7 @@ $appevents = Get-WinEvent -FilterHashtable @{LogName='Application'; Level=1} -Ma
 if ($appevents.Count -eq 0) {
 	Write-Output "Application: No Critical Events" >> .\results.txt
 } else {
-    $appevents
+    $appevents; Write-Output "Application:" >> .\results.txt
 }
 
 # Get System Critical Events
@@ -256,7 +256,7 @@ $sysevents = Get-WinEvent -FilterHashtable @{LogName='System'; Level=1} -MaxEven
 if ($sysevents.Count -eq 0) {
 	Write-Output "System: No Critical Events" >> .\results.txt
 } else {
-    $sysevents
+    $sysevents; Write-Output "System:" >> .\results.txt
 }
 
 # Get Security Critical Events
@@ -267,7 +267,7 @@ $secevents = Get-WinEvent -FilterHashtable @{LogName='Security'; Level=1} -MaxEv
 if ($secevents.Count -eq 0) {
 	Write-Output "Security: No Critical Events" >> .\results.txt
 } else {
-    $secevents
+    $secevents; Write-Output "Security:" >> .\results.txt
 }
 
 Write-Output "Overall Diagnostics:" >> .\results.txt
