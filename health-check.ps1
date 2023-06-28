@@ -236,10 +236,38 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
 # TODO: Find a way to automate Event-viewer filtering as it takes freaking forever to load
 
 
+
 Write-output "Event Viewer:" >> .\results.txt
 Write-output "-----------"
-Write-output "Application:" >> .\results.txt
-Write-output "System:" >> .\results.txt
-Write-output "Security:" >> .\results.txt
+
+
+# Get Application Critical Events
+$appevents = Get-WinEvent -FilterHashtable @{LogName='Application'; Level=1} -MaxEvents 100
+
+if ($appevents.Count -eq 0) {
+	Write-Output "Application: No Critical Events" >> .\results.txt
+} else {
+    $appevents
+}
+
+# Get System Critical Events
+$sysevents = Get-WinEvent -FilterHashtable @{LogName='System'; Level=1} -MaxEvents 100
+
+if ($sysevents.Count -eq 0) {
+	Write-Output "System: No Critical Events" >> .\results.txt
+} else {
+    $sysevents
+}
+
+# Get Security Critical Events
+
+
+$secevents = Get-WinEvent -FilterHashtable @{LogName='Security'; Level=1} -MaxEvents 100
+
+if ($secevents.Count -eq 0) {
+	Write-Output "Security: No Critical Events" >> .\results.txt
+} else {
+    $secevents
+}
 
 Write-Output "Overall Diagnostics:" >> .\results.txt
