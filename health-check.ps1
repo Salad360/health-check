@@ -224,17 +224,29 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
 
 #   # Windows Updates
 #
-   Write-Output "Windows Update:" >> .\results.txt
-   Write-Output "---------------"  >> .\results.txt
-#
-#
 # Might try to automate updates at some point, might not
 #Install-Module -Name PSWindowsUpdate
 
 
-# TODO: Find a way to automate Event-viewer filtering as it takes freaking forever to load
+$WinVer = Read-Host "Is this a Server2012 or older machine?(Y/N)" 
 
+if ($WinVer -eq "y"){ 
+	Write-Output "Windows Update:" >> .\results.txt
+}else{
 
+	Install-Module -Name PsWindowsUpdate
+	$PendingUpdates = Get-Windowsupdate
+	
+}
+
+if ($PendingUpdates -eq $null) {
+	Write-output "Windows Update: Up-to-date" >> .\results.txt
+
+}else{
+	Write-Output "Windows Update: Updates Pending" >> .\results.txt
+}
+
+# Search for Critical events in event log
 
 Write-output "Event Viewer:" >> .\results.txt
 Write-output "-----------"
