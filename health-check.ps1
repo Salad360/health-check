@@ -223,10 +223,8 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
 
 
 #   # Windows Updates
-#
-# Might try to automate updates at some point, might not
-#Install-Module -Name PSWindowsUpdate
 
+# Allows semi-automated Windows updates via PsWindowsUpdate Module. Requires at least Powershell 5 which is only included in Server 2016 and up
 
 $WinVer = Read-Host "Is this a Server2012 or older machine?(Y/N)" 
 
@@ -249,7 +247,7 @@ if ($PendingUpdates -eq $null) {
 # Search for Critical events in event log
 
 Write-output "Event Viewer:" >> .\results.txt
-Write-output "-----------"
+Write-output "-----------" >> .\results.txt  
 
 
 # Get Application Critical Events
