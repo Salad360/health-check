@@ -217,9 +217,17 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
 
    # Backup Protection (For now to remain a manual-check proccess)
 
-   Write-Output "Backup Protection" >> .\results.txt
+#   Write-Output "Backup Protection" >> .\results.txt
    Write-Output "------------------" >> .\results.txt
-   Write-Output "Backups active and monitored?" >> .\results.txt
+#   Write-Output "Backups active and monitored?" >> .\results.txt
+
+$BackupService = ((Get-Service "DattoBackupAgentService").Status)
+
+   if ($BackupService -eq 'Running') {
+      Write-Output "Backup Active and monitored?: Yes" >> .\results.txt
+   } else {
+      Write-Output "Backup Active and monitored?: No" >> .\results.txt 
+   }
 
 
 #   # Windows Updates
