@@ -215,11 +215,24 @@ $AV = ((Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProd
    Write-Output "AV and definitions up-to-date?" >> .\results.txt
 
 
-   # Backup Protection (For now to remain a manual-check proccess)
+   # Backup Protection 
 
 #   Write-Output "Backup Protection" >> .\results.txt
    Write-Output "------------------" >> .\results.txt
 #   Write-Output "Backups active and monitored?" >> .\results.txt
+
+
+function Get-DFP {
+   $DFPService = ((Get-Service "datto_file_protection_server.default").status)
+   if ($DFPService -eq 'Running') {
+      Write-Output "Backup Active and monitored?: DFP: File-level protection only" >> .\results.txt
+   } else {
+      Write-Output "Backup Active and monitored?: No" >> .\results.txt
+   }
+}
+
+
+function Get-DattoBCDR {
 
 $BackupService = ((Get-Service "DattoBackupAgentService").Status)
 
@@ -229,6 +242,13 @@ $BackupService = ((Get-Service "DattoBackupAgentService").Status)
       Write-Output "Backup Active and monitored?: No" >> .\results.txt 
    }
 
+}
+
+if ((Get-Service "DattoBackupAgentService")) {
+   Get-DattoBCDR
+} elseif ((Get-Service "datto_file_protection_server.default")) {
+   Get-DFP
+} 
 
 #   # Windows Updates
 
