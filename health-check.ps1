@@ -3,6 +3,9 @@
 
 # May reqire first running this command: [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
+# Blank out results.txt file if it already exists
+Write-Output "" > .\results.txt
+
 
 Write-Output "Login Test" >> .\results.txt
 Write-Output "-----------" >> .\results.txt
