@@ -291,3 +291,7 @@ if ($secevents.Count -eq 0) {
 }
 
 Write-Output "Overall Diagnostics:" >> .\results.txt
+
+
+# Output results file to std out
+Get-Content .\results.txt
